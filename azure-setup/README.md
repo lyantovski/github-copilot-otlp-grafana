@@ -1,6 +1,6 @@
 # Azure Setup: Application Insights + Managed Grafana
 
-![GitHub Copilot Dashboard](./images/grafana-dashboard-copilot.png)
+![GitHub Copilot Dashboard](./media/grafana-dashboard-copilot.png)
 
 This folder provides two supported ways to send GitHub Copilot OpenTelemetry data to Azure Monitor and visualize it in Azure Managed Grafana.
 

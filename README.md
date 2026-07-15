@@ -5,6 +5,8 @@ This repository demonstrates two ways to visualize GitHub Copilot OpenTelemetry 
 - Local setup with Docker Compose and Grafana Tempo (fastest to start)
 - Azure setup with OpenTelemetry Collector, Application Insights, and Azure Managed Grafana
 
+![Azure Setup Article Image](azure-setup/media/article-image.png)
+
 ## Repository Paths
 
 - `local-setup/`: Local-only stack (Tempo + Grafana)
