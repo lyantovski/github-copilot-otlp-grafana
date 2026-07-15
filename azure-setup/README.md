@@ -4,6 +4,19 @@
 
 This folder provides two supported ways to send GitHub Copilot OpenTelemetry data to Azure Monitor and visualize it in Azure Managed Grafana.
 
+## Important
+
+**Important:** While this guide provides the foundational blueprints for local and Azure-native pipelines, API endpoints, schema mappings, and authentication scopes (especially regarding Azure's OTLP preview endpoints) are subject to change.
+
+For advanced configurations, network hardening, or troubleshooting edge cases, always cross-reference your implementation with the **official documentation.**
+
+Microsoft and GitHub official docs reference:
+
+- [Monitor AI coding agents with Grafana | Microsoft Learn](https://learn.microsoft.com/en-us/azure/managed-grafana/grafana-opentelemetry-app-insights)
+- [Ingest OTLP Data into Azure Monitor with OTel Collector - Azure Monitor | Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-monitor/containers/opentelemetry-protocol-ingestion)
+- [Collect and analyze OpenTelemetry data with Azure Monitor (Preview) - Azure Monitor | Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-monitor/containers/collect-use-observability-data)
+- [Enterprise-managed OpenTelemetry export for VS Code and CLI - GitHub Changelog](https://github.blog/changelog/2026-07-08-enterprise-managed-opentelemetry-export-for-vs-code-and-cli/)
+
 ## Mode overview
 
 Mode 1: Non-preview (recommended for fastest local setup)
