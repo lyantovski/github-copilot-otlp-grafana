@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "eastus"
+    },
+    "logAnalyticsWorkspaceName": {
+      "value": "la-copilot-traces"
+    },
+    "appInsightsName": {
+      "value": "appi-copilot-traces"
+    },
+    "grafanaName": {
+      "value": "amg-copilot-traces"
+    },
+    "assignGrafanaMonitoringReader": {
+      "value": true
+    },
+    "tags": {
+      "value": {
+        "project": "copilot-traces",
+        "owner": "platform"
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: 0.0.0.0:4318
+      grpc:
+        endpoint: 0.0.0.0:4317
+
+processors:
+  resource/user_identity:
+    attributes:
+      - key: enduser.id
+        value: ${COPILOT_USER_EMAIL}
+        action: upsert
+      - key: github.copilot.user.email
+        value: ${COPILOT_USER_EMAIL}
+        action: upsert
+  attributes/user_identity:
+    actions:
+      - key: enduser.id
+        value: ${COPILOT_USER_EMAIL}
+        action: upsert
+      - key: github.copilot.user.email
+        value: ${COPILOT_USER_EMAIL}
+        action: upsert
+  memory_limiter:
+    check_interval: 1s
+    limit_mib: 512
+    spike_limit_mib: 128
+  cumulativetodelta:
+  batch:
+    timeout: 5s
+    send_batch_size: 1024
+
+extensions:
+  health_check:
+  azure_auth:
+    use_default: true
+    scopes:
+      - https://monitor.azure.com/.default
+
+exporters:
+  otlphttp/azuremonitor:
+    traces_endpoint: ${AZURE_MONITOR_TRACES_ENDPOINT}
+    logs_endpoint: ${AZURE_MONITOR_LOGS_ENDPOINT}
+    metrics_endpoint: ${AZURE_MONITOR_METRICS_ENDPOINT}
+    auth:
+      authenticator: azure_auth
+
+service:
+  extensions: [health_check, azure_auth]
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [resource/user_identity, attributes/user_identity, memory_limiter, batch]
+      exporters: [otlphttp/azuremonitor]
+    logs:
+      receivers: [otlp]
+      processors: [resource/user_identity, attributes/user_identity, memory_limiter, batch]
+      exporters: [otlphttp/azuremonitor]
+    metrics:
+      receivers: [otlp]
+      processors: [resource/user_identity, memory_limiter, cumulativetodelta, batch]
+      exporters: [otlphttp/azuremonitor]

@@ -1,0 +1,55 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: 0.0.0.0:4318
+      grpc:
+        endpoint: 0.0.0.0:4317
+
+processors:
+  resource/user_identity:
+    attributes:
+      - key: enduser.id
+        value: ${COPILOT_USER_EMAIL}
+        action: upsert
+      - key: github.copilot.user.email
+        value: ${COPILOT_USER_EMAIL}
+        action: upsert
+  attributes/user_identity:
+    actions:
+      - key: enduser.id
+        value: ${COPILOT_USER_EMAIL}
+        action: upsert
+      - key: github.copilot.user.email
+        value: ${COPILOT_USER_EMAIL}
+        action: upsert
+  memory_limiter:
+    check_interval: 1s
+    limit_mib: 512
+    spike_limit_mib: 128
+  batch:
+    timeout: 5s
+    send_batch_size: 1024
+
+exporters:
+  azuremonitor:
+    connection_string: ${APPINSIGHTS_CONNECTION_STRING}
+
+extensions:
+  health_check:
+
+service:
+  extensions: [health_check]
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [resource/user_identity, attributes/user_identity, memory_limiter, batch]
+      exporters: [azuremonitor]
+    metrics:
+      receivers: [otlp]
+      processors: [resource/user_identity, memory_limiter, batch]
+      exporters: [azuremonitor]
+    logs:
+      receivers: [otlp]
+      processors: [resource/user_identity, attributes/user_identity, memory_limiter, batch]
+      exporters: [azuremonitor]
