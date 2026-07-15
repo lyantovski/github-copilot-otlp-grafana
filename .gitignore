@@ -1,0 +1,9 @@
+# Environment and secret files
+.env
+**/.env
+.env.*
+**/.env.*
+
+# Keep documented examples
+!.env.example
+!**/.env.example

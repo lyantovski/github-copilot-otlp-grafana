@@ -139,7 +139,7 @@ See the [Microsoft guide](https://learn.microsoft.com/en-us/azure/managed-grafan
 
 ## Azure Deployment Path
 
-Use [azure-setup/README.md](azure-setup/README.md) for a complete Azure-based setup that provisions:
+Use [azure-setup/README.md](../azure-setup/README.md) for a complete Azure-based setup that provisions:
 
 - Log Analytics + workspace-based Application Insights
 - Azure Managed Grafana
